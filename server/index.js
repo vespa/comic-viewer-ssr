@@ -1,14 +1,21 @@
 import express from 'express';
 import path from 'path';
-import index from './routes/index';
-
+import routes from './routes';
+const middleware = require('webpack-dev-middleware');
+const webpack = require('webpack');
+import webPackConf from '../webpack.config.dev';
+const compiler = webpack(webPackConf);
 const app = express();
 
 // set static folder for generated css and front js files
 app.use('/public', express.static(path.join(__dirname, 'public')));
 
 // set routes
-app.use('/', index);
+app.use('/', routes);
+
+// app.use(middleware(compiler, {
+//     // webpack-dev-middleware options
+// }));
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {

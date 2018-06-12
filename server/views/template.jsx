@@ -1,23 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-export default function Template({ body, title }) {
-  return (
-    <html lang="pt">
-      <head>
-        <title>${title}</title>
-        <link rel="stylesheet" href="/public/bundle.css" />
-      </head>
-      <body>
-        <div id="root">${body}</div>
-        <script src="/public/bundle.js" />
-      </body>
-    </html>
-  );
+
+export default class Template extends Component {
+  constructor(args) {
+    super(...args);
+  }
+  render() {
+    return (
+      <html lang="pt">
+        <head>
+          <title>{this.props.title}</title>
+        </head>
+        <body>
+          <div id="root">{this.props.children}</div>
+          <script src="/public/bundle.js" />
+        </body>
+      </html>
+    );
+  }
 }
 
 Template.propTypes = {
-  body: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
 };
 
